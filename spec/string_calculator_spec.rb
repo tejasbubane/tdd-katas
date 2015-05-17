@@ -68,6 +68,18 @@ describe StringCalculator, "The string calculator class" do
       end
     end
 
+    context 'when called with negative numbers' do
+      let(:input) { "0,-2,3" }
+
+      it 'throws excpetion saying negatives not allowed' do
+        expect{ result }.to raise_error(/negatives not allowed/)
+      end
+
+      it 'shows negative values in the error message' do
+        expect{ result }.to raise_error(/[-2]/)
+      end
+    end
+
     context 'when input contains numbers greater than 1000' do
       let(:input) { "2, 1000, 1001" }
 
@@ -78,6 +90,22 @@ describe StringCalculator, "The string calculator class" do
 
     context 'when the delimeter is of more than a single character' do
       let(:input) { "//[***]\n1***2***3" }
+
+      it 'adds the input numbers' do
+        expect(result).to eq(6)
+      end
+    end
+
+    context 'when input contains multiple delimeters' do
+      let(:input) { "//[*][%]\n1*2%3" }
+
+      it 'adds the input numbers' do
+        expect(result).to eq(6)
+      end
+    end
+
+    context 'when input contains multiple delimeters of any length' do
+      let(:input) { "//[***][%%%]\n1***2%%%3" }
 
       it 'adds the input numbers' do
         expect(result).to eq(6)

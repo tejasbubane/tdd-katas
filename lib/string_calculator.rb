@@ -8,7 +8,10 @@ class StringCalculator
     delimeters.each do |delimeter|
       numbers = split(numbers, delimeter)
     end
-    numbers.map(&:to_i).reject { |n| n > 1000 }.inject(0, :+)
+    numbers = numbers.map(&:to_i)
+    negatives = check_negatives(numbers)
+    fail "negatives not allowed: #{negatives.inspect}" unless negatives.empty?
+    numbers.reject { |n| n > 1000 }.inject(0, :+)
   end
 
   private
@@ -23,7 +26,7 @@ class StringCalculator
 
   def find_delimeters
     delimeter = if input.include?("[")
-                  input.scan(/\[([^\]]*)\]\n/)
+                  input.scan(/\[([^\]]*)\]/)
                 else
                   input.scan(/^\/\/(.){1}(\n)/)
                 end.flatten
@@ -40,5 +43,9 @@ class StringCalculator
 
   def default_delimeters
     return [",", "\n"], input
+  end
+
+  def check_negatives(numbers)
+    numbers.select { |n| n < 0 }
   end
 end
