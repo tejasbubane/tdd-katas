@@ -83,13 +83,5 @@ describe StringCalculator, "The string calculator class" do
         expect(result).to eq(6)
       end
     end
-
-    # context 'when input contains multiple delimeters' do
-    #   let(:input) { "//[*][%]\n1***2***3" }
-
-    #   it 'adds the input numbers' do
-    #     expect(result).to eq(6)
-    #   end
-    # end
   end
 end
